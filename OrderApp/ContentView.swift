@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var visibility: NavigationSplitViewVisibility = .detailOnly
+    @State private var preferredColumn = NavigationSplitViewColumn.detail
+    
+    @State var products: [ProductModel] = []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        //        NavigationSplitView(columnVisibility: $visibility) {
+        NavigationSplitView(preferredCompactColumn: $preferredColumn) {
+            OrderView()
+                .navigationSplitViewColumnWidth(min: 300, ideal: 350, max: 400)
+        } detail: {
+            ProductsMenuView()
         }
-        .padding()
+        //        .navigationSplitViewStyle(.prominentDetail)
     }
 }
 

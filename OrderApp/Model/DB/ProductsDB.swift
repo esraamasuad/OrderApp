@@ -41,18 +41,14 @@ class ProductsDB {
             image = Expression<String>("image")
             price = Expression<Double>("price")
             
-            /// check if the user's table is already created if (!UserDefaults.standard.bool(forKey: "is_db_created"))
-            if !(UserDefaults.standard.bool(forKey: "is_db_created")) {
-                // if not, then create the table
-                try db.run(products.create { (t) in
+            /// check if the user's table is already created // if not, then create the table
+                try db.run(products.create(ifNotExists: true, block: { t in
                     t.column(id, primaryKey: true)
                     t.column (name)
                     t.column (image)
                     t.column (price)
-                })
-                // set the value to true, so 1t will not attempt to create the table again
-                UserDefaults.standard.set(true, forKey: "is_db_created")
-            }
+                }))
+            
         } catch {
             // show error message if any print (error.localizedDescription)
             print(error.localizedDescription)

@@ -1,1 +1,18 @@
-
+{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": {
+        "login": "api_key_client_1",
+        "password":
+        "9M2CstCBMrL_GA969gRvQgDiGWOivR7ht-znSr_ZqvOJjmEJaFyrrJF3cDvTtZQvMPTo8flglEcQR_9Od1onzg",
+        "db": "comu_test_tomtom",
+        "context": {
+            "display_default_code": false,
+            "tz": "Asia/Riyadh",
+            "false_name_ar": true,
+            "uid": 6,
+            "lang": "ar_001"
+        }
+    }
+}

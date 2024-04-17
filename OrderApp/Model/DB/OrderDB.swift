@@ -49,6 +49,9 @@ class OrderDB {
                 t.column (quantity)
             }))
             
+//#if DEBUG
+//    db.trace { print($0) }
+//#endif
         } catch {
             // show error message if any print (error.localizedDescription)
             print(error.localizedDescription)
@@ -57,25 +60,46 @@ class OrderDB {
     
     
     /**
-     
+     - insert or update item
      */
     public func addProductToTheOrder(_ product: ProductModel) {
         do {
-            try db.run(order.insert(id <- product.id,
-                                    name <- product.display_name,
-                                    quantity <- 1, //product.quantity,
-                                    price <- product.lst_price))
+            let existProduct = order.filter(id == product.id)
+            if try db.run(existProduct.update(quantity++)) > 0 {
+                print("updated")
+            }else {
+               try db.run(order.insert(id <- product.id,
+                                        name <- product.display_name,
+                                        quantity <- 1, //product.quantity,
+                                        price <- product.lst_price))
+            }
         }catch {
             print(error.localizedDescription)
         }
     }
     
+    /***
+     - delete item
+     */
+    func delete(id: Int) -> Bool {
+        guard let database = db else {
+            return false
+        }
+        do {
+            let filter = order.filter(self.id == id)
+            try database.run(filter.delete())
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
     /**
-     
+     - get All List Items
      */
     public func getOrderList() -> [ProductModel] {
         var allProducts: [ProductModel] = []
-        
         do {
             for pro_ in try db.prepare(order) {
                 let productModel = ProductModel()
