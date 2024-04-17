@@ -1,0 +1,22 @@
+{
+    "params": { "model": "product.product", "args": [], "kwargs": {
+        "domain": [
+            ["active","=",true],["invisible_in_ui","=",true],
+            ["is_combo","=",false],
+            ["sale_ok","=",true],
+            ["available_in_pos","=",true],
+        ["active","=",true]],
+        "offset": 0,
+        "context": {"display_default_code": false,"tz": "Asia/Riyadh","false_name_ar": true,
+            "uid": 6,"lang": "ar_001"},
+        "fields": [
+            "id","display_name","lst_price","image_small","original_name","name_ar","other_lang_name",
+            "product_variant_ids","sequence"],
+        "limit": false
+    },
+        "method": "search_read"
+    },
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1
+}
